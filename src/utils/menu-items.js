@@ -1,94 +1,109 @@
 export default {
     items: [
         {
-            id: 'home',
-            title: 'Tài nguyên',
+            id: 'dashboard',
+            title: 'Dashboard',
             type: 'group',
             icon: 'icon-ui',
             children: [
                 {
-                    id: 'dashboard',
-                    title: 'Trang chủ',
+                    id: 'home',
+                    title: 'Home',
                     type: 'item',
-                    url: '/dashboard',
+                    url: '/home',
                     icon: 'feather icon-home',
                 },
                 {
+                    id: 'analytics',
+                    title: 'Analytics',
+                    type: 'item',
+                    url: '/analytics',
+                    icon: 'feather icon-activity',
+                },
+            ]
+        },
+        {
+            id: 'quick-menu',
+            title: 'Quick Menu',
+            type: 'group',
+            icon: 'icon-ui',
+            children: [
+                {
                     id: 'product',
-                    title: 'Sản phẩm',
-                    type: 'collapse',
+                    title: 'Product',
+                    type: 'item',
+                    url: '/product',
                     icon: 'feather icon-box',
-                    children: [
-                        {
-                            id: 'listProduct',
-                            title: 'Danh sách sản phẩm',
-                            type: 'item',
-                            url: '/product'
-                        },
-                        {
-                            id: 'litsCaterogy',
-                            title: 'Danh mục sản phẩm',
-                            type: 'item',
-                            url: '/category'
-                        },
-                        {
-                            id: 'litsSupplier',
-                            title: 'Nhà cung cấp',
-                            type: 'item',
-                            url: '/supplier'
-                        },
-                    ]
+                },
+                {
+                    id: 'category',
+                    title: 'Category',
+                    type: 'item',
+                    url: '/category',
+                    icon: 'feather icon-grid',
+                },
+                {
+                    id: 'supplier',
+                    title: 'Supplier',
+                    type: 'item',
+                    url: '/supplier',
+                    icon: 'feather icon-circle',
                 },
                 {
                     id: 'order',
-                    title: 'Đơn hàng',
+                    title: 'Order',
                     type: 'item',
                     url: '/order',
                     icon: 'feather icon-file-text',
                 },
-                /* {
-                    id: 'service',
-                    title: 'Dịch vụ',
-                    type: 'item',
-                    url: '/service',
-                    icon: 'feather icon-home',
-                }, */
                 {
-                    id: 'sale',
-                    title: 'Ưu đãi',
+                    id: 'promocode',
+                    title: 'Sale',
                     type: 'item',
-                    url: '/sale',
+                    url: '/promocode',
                     icon: 'feather icon-star',
                 },
                 {
-                    id: 'customer',
-                    title: 'Khách hàng',
+                    id: 'user',
+                    title: 'User',
                     type: 'item',
-                    url: '/customer',
+                    url: '/user',
                     icon: 'feather icon-users',
-                },
+                }
+            ]
+        },
+        {
+            id: 'webhost',
+            title: 'Webhost',
+            type: 'group',
+            icon: 'icon-ui',
+            children: [
                 {
-                    id: 'webhost',
-                    title: 'Kênh bán hàng',
-                    type: 'collapse',
-                    icon: 'feather icon-slack',
-                    children: [
-                        {
-                            id: 'shoppe',
-                            title: 'Shoppe',
-                            type: 'item',
-                            url: '/webhost/shoppe'
-                        },
-                    ]
-                },
-                {
-                    id: 'setting',
-                    title: 'Cấu hình',
+                    id: 'shoppe',
+                    title: 'Shoppe',
                     type: 'item',
-                    url: '/setting',
-                    icon: 'feather icon-settings',
+                    url: '/webhost/shoppe',
+                    icon: 'feather icon-slack',
+                    classes: 'nav-item disabled',
                 },
             ]
         },
+        {
+            id: 'resources',
+            title: 'Resources',
+            type: 'group',
+            icon: 'icon-ui',
+            children: [
+                {
+                    id: 'upload-file',
+                    title: 'Upload file',
+                    type: 'item',
+                    url: '/resources/upload',
+                    icon: 'feather icon-upload',
+                    classes: 'nav-item disabled',
+                },
+            ]
+        },
+        
     ]
 }

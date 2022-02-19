@@ -76,14 +76,14 @@
     }
 }
 
-.custom-select{
+/* .custom-select{
     height: calc(2.25rem + 9px);
-}
+} */
 /* input group End */
 /**====== Form Componant css end ======**/
-select.form-control:not([size]):not([multiple]) {
+/* select.form-control:not([size]):not([multiple]) {
     height: calc(2.55rem + 2px);
-}
+} */
 .input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),
@@ -133,10 +133,10 @@ select.form-control-lg:not([size]):not([multiple]) {
         padding: 0.550rem 0.75rem;
     }
 }
-.form-control.is-invalid, .was-validated .form-control:invalid,
+/* .form-control.is-invalid, .was-validated .form-control:invalid,
 .was-validated .form-control:valid, .form-control.is-valid {
     background-position: calc(100% - 10px) calc(.375em + 0.4875rem);
-}
+} */
 
 .was-validated .form-control:invalid~.invalid-feedback {
   background: #fff;

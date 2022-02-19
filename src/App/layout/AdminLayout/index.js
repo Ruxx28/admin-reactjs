@@ -12,10 +12,11 @@ import routes from "../../../routes";
 import * as actionTypes from "../../../store/actions";
 
 import './app.scss';
+import { ToastContainer } from 'react-toastify';
 
 class AdminLayout extends Component {
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if (this.props.windowWidth > 992 && this.props.windowWidth <= 1024 && this.props.layout !== 'horizontal') {
             this.props.onComponentWillMount();
         }
@@ -50,7 +51,7 @@ class AdminLayout extends Component {
                     <div className="pcoded-wrapper">
                         <div className="pcoded-content">
                             <div className="pcoded-inner-content">
-                                <Breadcrumb />
+                                {/* <Breadcrumb /> */}
                                 <div className="main-body">
                                     <div className="page-wrapper">
                                         <Suspense fallback={<Loader />}>
@@ -65,6 +66,16 @@ class AdminLayout extends Component {
                         </div>
                     </div>
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </>
         );
     }

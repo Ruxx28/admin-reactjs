@@ -20,7 +20,7 @@ class Breadcrumb extends Component {
         });
     };
 
-    componentWillReceiveProps = () => {
+    UNSAFE_componentWillReceiveProps = () => {
         (navigation.items).map((item, index) => {
             if (item.type && item.type === 'group') {
                 this.getCollapse(item);

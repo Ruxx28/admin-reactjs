@@ -1,89 +1,114 @@
 import React, { useMemo, useState, useEffect } from "react";
-import useApi from "../../utils/useApi"
-import windowSize from '../../utils/windowDimensions'
-import { Row, Col, Card, Button, Stack, Form } from 'react-bootstrap';
+import Select2 from "../../App/components/Select2"
+import { Row, Col, Button, Form } from 'react-bootstrap';
 
-function FormExample() {
+function FormExample({ dataSelect, loadding }) {
+
   const [form, setForm] = useState({})
   const [errors, setErrors] = useState({})
-  const setField = (field, value) => {
+
+  const setField = (field, val) => {
     setForm({
       ...form,
-      [field]: value.target.value
+      [field]: val
     })
     if (!!errors[field]) setErrors({
       ...errors,
       [field]: null
     })
   }
+
+  const handleChangeSelect = (e) => {
+    let values = []
+    e.map(e => values.push(e.value))
+    return values
+  }
+
   const findFormErrors = () => {
-    const { name, food, rating, comment } = form
+    const { name } = form
     const newErrors = {}
-    // name errors
+
     if (!name || name === '') newErrors.name = 'cannot be blank!'
     else if (name.length > 30) newErrors.name = 'name is too long!'
-    // food errors
-    if (!food || food === '') newErrors.food = 'select a food!'
-    // rating errors
-    if (!rating || rating > 5 || rating < 1) newErrors.rating = 'must assign a rating between 1 and 5!'
-    // comment errors
-    if (!comment || comment === '') newErrors.comment = 'cannot be blank!'
-    else if (comment.length > 100) newErrors.comment = 'comment is too long!'
-
     return newErrors
   }
+
   const handleSubmit = e => {
+    console.log(dataSelect)
     e.preventDefault()
-    // get our new errors
     const newErrors = findFormErrors()
-    // Conditional logic:
     if (Object.keys(newErrors).length > 0) {
-      // We got errors!
       setErrors(newErrors)
     } else {
-      // No errors! Put any logic here for the form submission!
       alert('Thank you for your feedback!')
     }
   }
 
+  const statusOption = [{ value: 'published', label: 'Published' }, { value: 'not-released', label: 'Not released' }]
   return (
-    <Form style={{ width: '300px' }} onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Label>Name</Form.Label>
-        <Form.Control type='text' onChange={e => setField('name', e)} isInvalid={!!errors.name} />
-        <Form.Control.Feedback type='invalid'>
-          {errors.name}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Food?</Form.Label>
-        <Form.Control as='select' onChange={e => setField('food', e)} isInvalid={!!errors.name}>
-          <option value=''>Select a food:</option>
-          <option value='chicken parm'>Chicken Parm</option>
-          <option value='BLT'>BLT</option>
-          <option value='steak'>Steak</option>
-          <option value='salad'>Salad</option>
-        </Form.Control>
-        <Form.Control.Feedback type='invalid'>
-          {errors.name}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Rating</Form.Label>
-        <Form.Control type='number' onChange={e => setField('rating', e)} isInvalid={!!errors.name}/>
-        <Form.Control.Feedback type='invalid'>
-          {errors.name}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Comments</Form.Label>
-        <Form.Control as='textarea' onChange={e => setField('comment', e)} isInvalid={!!errors.name}/>
-        <Form.Control.Feedback type='invalid'>
-          {errors.name}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Button type='submit'>Submit Review</Button>
-    </Form>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <Row className="mb-3">
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Name</Form.Label>
+              <Form.Control type='text' onChange={e => setField('name', e.target.value)} isInvalid={!!errors.name} />
+              <Form.Control.Feedback type='invalid'>
+                {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>SKU</Form.Label>
+              <Form.Control type='text' onChange={e => setField('sku', e.target.value)} isInvalid={!!errors.sku} />
+              <Form.Control.Feedback type='invalid'>
+                {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Status</Form.Label>
+              <Select2 optionsData={statusOption}
+                onChange={e => setField("food", e.value)}
+                defaultValue={statusOption[0]} />
+              <Form.Control.Feedback type='invalid'>
+                {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Price</Form.Label>
+              <Form.Control type='number' onChange={e => setField('price', e.target.value)} isInvalid={!!errors.price} />
+              <Form.Control.Feedback type='invalid'>
+                {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control type='text' onChange={e => setField('quantity', e.target.value)} isInvalid={!!errors.quantity} />
+              <Form.Control.Feedback type='invalid'>
+                {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control as='textarea' onChange={e => setField('des', e.target.value)} isInvalid={!!errors.des} />
+              <Form.Control.Feedback type='invalid'>
+                {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Danh mục</Form.Label>
+              <Select2 multi /* optionsData={dataSelect.category} */ loadingData={loadding} onChange={e => setField("category", handleChangeSelect(e))} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Nhà sản xuất</Form.Label>
+              <Select2 multi /* optionsData={dataSelect.supplier} */ loadingData={loadding} onChange={e => setField("supplier", handleChangeSelect(e))} />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Button type='submit' className="mt-2">Submit Review</Button>
+      </Form >
+    </>
   );
 }
 

@@ -22,7 +22,7 @@ function FormExample() {
   }
 
   const findFormErrors = () => {
-    const { name, food, rating, comment } = form
+    const { name } = form
     const newErrors = {}
     if (!name || name === '') newErrors.name = 'cannot be blank!'
     else if (name.length > 30) newErrors.name = 'name is too long!'
@@ -49,11 +49,11 @@ function FormExample() {
 
   async function sendData(value) {
     await useApi
-      .post("category", value)
+      .post("supplier", value)
       .then((response) => {
         const data = response.data
         if(data){
-          toast.success(`Danh mục mới: ${data.name}`)
+          toast.success(`Nhà cung cấp mới: ${data.name}`)
         }
       });
   }
@@ -78,23 +78,37 @@ function FormExample() {
 
   return (
     <Row>
-      <Col>
-        <Form style={{ width: '300px' }} onSubmit={handleSubmit}>
+      <Col md={6}>
+        <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Tên danh mục</Form.Label>
+            <Form.Label>Tên nhà sản xuất</Form.Label>
             <Form.Control type='text' onChange={e => setField('name', e)} isInvalid={!!errors.name} />
             <Form.Control.Feedback type='invalid'>
               {errors.name}
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Các sản phẩm thuộc danh mục ?</Form.Label>
-            <Select2 optionsData={optionsData} loadingData={loadingData} onChange={handleChange} multi/>
+            <Form.Label>Website</Form.Label>
+            <Form.Control type='text' onChange={e => setField('url', e)} isInvalid={!!errors.url} />
             <Form.Control.Feedback type='invalid'>
               {errors.name}
             </Form.Control.Feedback>
           </Form.Group>
-          <Button type='submit'>Lưu danh mục sản phẩm</Button>
+          <Form.Group>
+            <Form.Label>Description</Form.Label>
+            <Form.Control as='textarea' onChange={e => setField('des', e)} isInvalid={!!errors.des} />
+            <Form.Control.Feedback type='invalid'>
+              {errors.name}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Các sản phẩm nhà sản xuất cung cấp ?</Form.Label>
+            <Select2 optionsData={optionsData} loadingData={loadingData} onChange={handleChange} />
+            <Form.Control.Feedback type='invalid'>
+              {errors.name}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Button type='submit' className="mt-2">Lưu danh mục sản phẩm</Button>
         </Form>
       </Col>
     </Row>

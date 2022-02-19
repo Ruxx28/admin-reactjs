@@ -2,26 +2,36 @@ import React, { useMemo, useState, useEffect } from "react";
 import useApi from "../../utils/useApi"
 import { Row, Col, Tabs, Tab } from 'react-bootstrap';
 import Datatables from "../../App/components/Datatables";
-import AddCategory from "./addCategory"
+import AddUser from "./addUser"
 
 function App() {
     const [loadingData, setLoadingData] = useState(true);
     const columns = useMemo(() => [
         { title: "Name", data: "name", key: "name" },
-        { title: "Slug", data: "slug", key: "slug" }
+        { title: "Email", data: "email", key: "Email" },
+        { title: "Blocked", data: "blocked", key: "blocked" },
+        { title: "Address", data: "addressCopy", key: "addressCopy"}
     ]);
     const [data, setData] = useState([]);
     async function getData() {
         await useApi
-            .get("category")
-            .then((response) => {
-                setData(response.data);
+            .get("user")
+            .then((res) => {
+                let values = res.data
+                for(let i in values){
+                    if(values[i].addressActive){
+                        const out = values[i].address.find(data=>data._id === values[i].addressActive)
+                        if(out.road) values[i].addressCopy = out.road
+                        if(out.district) values[i].addressCopy += ", "+out.district
+                        if(out.city) values[i].addressCopy += ", "+out.city
+                    } else { values[i].addressCopy = '' }
+                }
+                setData(values);
                 setLoadingData(false);
             });
     }
 
     useEffect(() => {
-
         if (loadingData) {
             getData();
         }
@@ -32,15 +42,7 @@ function App() {
     }
 
     function actionDelete(val) {
-        const y = confirm('Are you sure you want to delete this item')
-        if (y) {
-            /* const index = data.findIndex(a => a._id == val)
-            let dataCopy = data
-            dataCopy.splice(index,1); */
-
-            useApi.delete(`category/${val}`)
-            getData()
-        }
+        useApi.delete(`user/${val}`)
     }
 
     return (
@@ -59,7 +61,7 @@ function App() {
                         </Row>
                     </Tab>
                     <Tab eventKey="add" title="Thêm mới">
-                        <AddCategory />
+                        <AddUser />
                     </Tab>
                 </Tabs>
             </Col>

@@ -1,14 +1,10 @@
 import React, { Component, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Loadable from 'react-loadable';
 import Loader from './layout/Loader'
 import ScrollToTop from './layout/ScrollToTop';
 import routes from "../routes/auth";
 
-const AdminLayout = Loadable({
-    loader: () => import('./layout/AdminLayout'),
-    loading: Loader
-});
+const AdminLayout = React.lazy(() =>  import('./layout/AdminLayout'));
 
 class App extends Component {
     render() {

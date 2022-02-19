@@ -10,7 +10,7 @@ class Friends extends Component {
         user: []
     };
 
-    componentWillReceiveProps = (nextProps) => {
+    UNSAFE_componentWillReceiveProps = (nextProps) => {
         if (!nextProps.listOpen) {
             this.setState({chatOpen: false, user: []});
         }
